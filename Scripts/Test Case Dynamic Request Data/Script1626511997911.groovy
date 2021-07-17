@@ -17,7 +17,6 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-response1 = WS.sendRequest(findTestObject('CountryInfoSOAPService/Get CountryListByName'))
+response = WS.sendRequest(findTestObject('CountryInfoSOAPService/Get Country Currency', [('CountryISOCode') :  'VN']))
 
-WS.sendRequestAndVerify(findTestObject('CountryInfoSOAPService/Get CountryListByName'))
-
+WS.verifyElementText(response, 'CountryCurrencyResponse.CountryCurrencyResult.sName', 'Dong')

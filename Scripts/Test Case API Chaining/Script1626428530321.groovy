@@ -19,5 +19,13 @@ import org.openqa.selenium.Keys as Keys
 
 response1 = WS.sendRequest(findTestObject('CountryInfoSOAPService/Get CountryListByName'))
 
-WS.sendRequestAndVerify(findTestObject('CountryInfoSOAPService/Get CountryListByName'))
+String xml1 = response1.responseBodyContent
+def dataValue= new XmlSlurper().parseText(xml1)
+def countryCode = dataValue.ListOfCountryNamesByNameResult.tCountryCodeAndName[2].sISOCode.text()
+
+GlobalVariable.countryCode = countryCode
+
+println('...Value  for Global Variable is:' + GlobalVariable.CountryCode)
+
+WS.sendRequest(findTestObject('CountryInfoSOAPService/Get Captial', [('CountryISOCode') : GlobalVariable.countryCode]))
 
